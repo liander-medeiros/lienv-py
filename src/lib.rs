@@ -56,6 +56,7 @@ fn lienv(_py: Python, m: &PyModule) -> PyResult<()> {
     add_handler(_py.get_type::<PyString>(), parser::to_pyobject::<String>);
     add_handler(_py.get_type::<PyDict>(), parser::to_pyobject::<types::Dict>);
     add_handler(_py.get_type::<PyList>(), parser::to_pyobject::<types::List>);
+    add_handler(_py.get_type::<PyTuple>(), parser::to_pyobject::<types::Tuple>);
     m.add_function(wrap_pyfunction!(get, m)?)?;
     Ok(())
 }

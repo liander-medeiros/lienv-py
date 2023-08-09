@@ -38,3 +38,22 @@ impl FromStr for super::List {
         })
     }
 }
+
+impl FromStr for super::Tuple {
+    type Err = PyErr;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Python::with_gil(|py: Python<'_>| {
+            let result = py
+                .eval(s, None, None)
+                .map_err(|e| PyErr::new::<pyo3::exceptions::PySyntaxError, _>(e))?;
+            if let Ok(tuple) = result.extract::<&pyo3::types::PyTuple>() {
+                Ok(super::Tuple(tuple.to_object(py)))
+            } else {
+                Err(PyErr::new::<pyo3::exceptions::PyTypeError, _>(
+                    "Invalid tuple object",
+                ))
+            }
+        })
+    }
+}

@@ -11,3 +11,9 @@ impl ToPyObject for super::List {
         self.0.to_owned()
     }
 }
+
+impl ToPyObject for super::Tuple {
+    fn to_object(&self, _py: Python) -> PyObject {
+        self.0.to_owned()
+    }
+}
