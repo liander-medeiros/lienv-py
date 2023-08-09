@@ -57,5 +57,5 @@ Although this project's purpose was to solve problems that at first seemed too s
 I am yet to be proficient in Rust, so pardon my silly mistakes.
 
 <div align="center">
-    <img src="https://media.npr.org/assets/img/2023/05/26/honest-work-meme-cb0f0fb2227fb84b77b3c9a851ac09b095ab74d8-s1100-c50.jpg" style="max-width: 300px"/>
+    <img src="https://media.npr.org/assets/img/2023/05/26/honest-work-meme-cb0f0fb2227fb84b77b3c9a851ac09b095ab74d8-s1100-c50.jpg" width="300px"/>
 </div>
