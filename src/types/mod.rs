@@ -5,3 +5,5 @@ mod impl_topyobject;
 
 pub struct List(PyObject);
 pub struct Dict(PyObject);
+
+pub struct Tuple(PyObject);
