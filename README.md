@@ -11,7 +11,12 @@ LiEnv is a tool to easily get typed values out of strings stored in environment 
 - Simplifies the sometimes tedious task of parsing strings to typed variables
 - Provides a way to do it uniformly througout the project
 - Aims to prevent unwanted behaviour caused by typos, errors or malicious content in environment variables
-- Python | Rust (TODO)
+
+### Currently supported Python types:
+- Integers and Floats
+- Dicts
+- Lists
+- Tuples
 
 ## Example
 
@@ -41,12 +46,15 @@ pip install lienv
 
 ## TODO
 
-- [ ] Library as a crate for Rust
+- [ ] Add boolean parsing
 - [ ] Parse dict without using eval
 - [ ] Parse list without using eval
 - [ ] Parse tuple without using eval
 - [ ] Implement unit tests in Rust
 - [ ] Figure out how to test the resulting function in Python
+- [ ] Change default integers and floats to 32 bit based on architecture
+- [ ] Add wrappers for unsigned integer parsing
+- [ ] Add wrappers for 8 and 16 bit numbers
 
 
 ## Contributing
