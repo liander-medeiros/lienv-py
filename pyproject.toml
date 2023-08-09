@@ -4,13 +4,30 @@ build-backend = "maturin"
 
 [project]
 name = "lienv"
-requires-python = ">=3.7"
+description = "A tool to easily get typed values out of strings stored in environment variables."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+keywords = ["environment", "variables", "types", "parsing", "rust"]
+authors = [
+  {email = "liander.medeiros@gmail.com"},
+  {name = "Liander Medeiros"}
+]
 classifiers = [
     "Programming Language :: Rust",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 
+[project.urls]
+homepage = "https://github.com/liander-medeiros/lienv-py"
+documentation = "https://github.com/liander-medeiros/lienv-py/blob/master/README.md"
+repository = "https://github.com/liander-medeiros/lienv-py"
+changelog = "https://github.com/liander-medeiros/lienv-py/blob/master/CHANGELOG.md"
 
 [tool.maturin]
 features = ["pyo3/extension-module"]
