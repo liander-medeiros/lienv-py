@@ -1,6 +1,20 @@
 use pyo3::prelude::*;
 use std::str::FromStr;
 
+impl FromStr for super::Bool {
+    type Err = PyErr;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if let Ok(parsed_value) = s.trim().to_lowercase().parse::<bool>() {
+            Ok(super::Bool(parsed_value))
+        } else {
+            Err(PyErr::new::<pyo3::exceptions::PyValueError, _>(
+                "Invalid boolean value",
+            ))
+        }
+    }
+}
+
 impl FromStr for super::Dict {
     type Err = PyErr;
 

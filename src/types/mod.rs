@@ -7,3 +7,5 @@ pub struct List(PyObject);
 pub struct Dict(PyObject);
 
 pub struct Tuple(PyObject);
+
+pub struct Bool(bool);

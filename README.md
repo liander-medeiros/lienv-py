@@ -17,6 +17,7 @@ LiEnv is a tool to easily get typed values out of strings stored in environment 
 - Dicts
 - Lists
 - Tuples
+- Booleans
 
 ## Example
 
@@ -46,12 +47,9 @@ pip install lienv
 
 ## TODO
 
-- [ ] Add boolean parsing
-- [ ] Parse dict without using eval
-- [ ] Parse list without using eval
-- [ ] Parse tuple without using eval
+- [ ] Parse types without directly using python's eval
 - [ ] Implement unit tests in Rust
-- [ ] Figure out how to test the resulting function in Python
+- [ ] Figure out how to test the Python module
 - [ ] Change default integers and floats to 32 bit based on architecture
 - [ ] Add wrappers for unsigned integer parsing
 - [ ] Add wrappers for 8 and 16 bit numbers
