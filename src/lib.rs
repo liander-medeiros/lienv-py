@@ -24,7 +24,7 @@ fn add_handler(new_type: &PyType, handler: TypeHandlerFn){
 
 /// Parse the content of an environment variable into an object of the specified type.
 #[pyfunction]
-fn get(var_type: &PyType, var_name: &str) -> PyResult<PyObject> {
+fn get<'py>(py: pyo3::Python<'py>, var_type: &PyType, var_name: &str) -> PyResult<PyObject> {
     let var_content: String = match std::env::var(var_name) {
         Ok(content) => content,
         Err(e) => match e {
@@ -32,7 +32,7 @@ fn get(var_type: &PyType, var_name: &str) -> PyResult<PyObject> {
                 format!("The environment variable '{}' is not defined", var_name),
             )),
             VarError::NotUnicode(_) => return Err(PyErr::new::<pyo3::exceptions::PyKeyError, _>(
-                format!("The environment variable has an invalid name"),
+                format!("The environment variable '{}' has an invalid name", var_name),
             )),
         }
     };
@@ -40,11 +40,24 @@ fn get(var_type: &PyType, var_name: &str) -> PyResult<PyObject> {
     let key = var_type.name().unwrap().to_string();
     let binding = HANDLERS.lock().unwrap();
     let parser = binding.get(&key);
-    match parser {
+    let result = match parser {
         Some(parser) => parser(var_content.as_str()),
         None => Err(PyErr::new::<pyo3::exceptions::PyTypeError, _>(
             format!("There is no defined parser for type '{}'", key),
         ))
+    };
+    match result {
+        Ok(value) => Ok(value),
+        Err(e) => {
+            let message = e.value(py).to_string();
+            Err(PyErr::new::<pyo3::exceptions::PyValueError, _>(
+                format!(
+                    "An error ocurred while parsing the environment variable '{}': {}",
+                    var_name,
+                    message
+                ),
+            ))
+        }
     }
 }
 
