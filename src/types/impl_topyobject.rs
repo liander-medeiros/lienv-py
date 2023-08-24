@@ -23,3 +23,21 @@ impl ToPyObject for super::Tuple {
         self.0.to_owned()
     }
 }
+
+impl ToPyObject for super::Int {
+    fn to_object(&self, py: Python) -> PyObject {
+        self.0.to_object(py)
+    }
+}
+
+impl ToPyObject for super::Float {
+    fn to_object(&self, py: Python) -> PyObject {
+        self.0.to_object(py)
+    }
+}
+
+impl ToPyObject for super::String {
+    fn to_object(&self, py: Python) -> PyObject {
+        self.0.to_object(py)
+    }
+}

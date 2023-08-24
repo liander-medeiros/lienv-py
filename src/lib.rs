@@ -64,9 +64,9 @@ fn get<'py>(py: pyo3::Python<'py>, var_type: &PyType, var_name: &str) -> PyResul
 /// A Python module to parse content stored in environment variables
 #[pymodule]
 fn lienv(_py: Python, m: &PyModule) -> PyResult<()> {
-    add_handler(_py.get_type::<PyInt>(), parser::to_pyobject::<i64>);
-    add_handler(_py.get_type::<PyFloat>(), parser::to_pyobject::<f64>);
-    add_handler(_py.get_type::<PyString>(), parser::to_pyobject::<String>);
+    add_handler(_py.get_type::<PyInt>(), parser::to_pyobject::<types::Int>);
+    add_handler(_py.get_type::<PyFloat>(), parser::to_pyobject::<types::Float>);
+    add_handler(_py.get_type::<PyString>(), parser::to_pyobject::<types::String>);
     add_handler(_py.get_type::<PyDict>(), parser::to_pyobject::<types::Dict>);
     add_handler(_py.get_type::<PyList>(), parser::to_pyobject::<types::List>);
     add_handler(_py.get_type::<PyTuple>(), parser::to_pyobject::<types::Tuple>);

@@ -22,6 +22,42 @@ impl FromStr for super::Bool {
     }
 }
 
+impl FromStr for super::Float {
+    type Err = ParsingError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if let Ok(parsed_value) = s.trim().parse::<fsize::fsize>() {
+            Ok(super::Float(parsed_value))
+        } else {
+            Err(ParsingError("Invalid value for type 'float'"))
+        }
+    }
+}
+
+impl FromStr for super::Int {
+    type Err = ParsingError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if let Ok(parsed_value) = s.trim().to_lowercase().parse::<isize>() {
+            Ok(super::Int(parsed_value))
+        } else {
+            Err(ParsingError("Invalid value for type 'integer'"))
+        }
+    }
+}
+
+impl FromStr for super::String {
+    type Err = ParsingError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if !s.trim().is_empty() {
+            Ok(super::String(s.to_string()))
+        } else {
+            Err(ParsingError("Invalid value for type 'string' (empty string)"))
+        }
+    }
+}
+
 impl FromStr for super::Dict {
     type Err = ParsingError;
 
