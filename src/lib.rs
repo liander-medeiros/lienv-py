@@ -24,20 +24,39 @@ fn add_handler(new_type: &PyType, handler: TypeHandlerFn){
 
 /// Parse the content of an environment variable into an object of the specified type.
 #[pyfunction]
-fn get<'py>(py: pyo3::Python<'py>, var_type: &PyType, var_name: &str) -> PyResult<PyObject> {
+#[pyo3(signature = (var_type, var_name, /, *, default=None))]
+fn get<'py>(py: pyo3::Python<'py>, var_type: &PyType, var_name: &str, default: Option<PyObject>) -> PyResult<PyObject> {
+    let key = var_type.name().unwrap().to_string();
+
     let var_content: String = match std::env::var(var_name) {
         Ok(content) => content,
-        Err(e) => match e {
-            VarError::NotPresent => return Err(PyErr::new::<pyo3::exceptions::PyKeyError, _>(
-                format!("The environment variable '{}' is not defined", var_name),
-            )),
-            VarError::NotUnicode(_) => return Err(PyErr::new::<pyo3::exceptions::PyKeyError, _>(
-                format!("The environment variable '{}' has an invalid name", var_name),
-            )),
+        Err(e) => {
+            if let Some(_) = default{
+                let new_value = default.to_object(py).to_string();
+                let user_warning = py.get_type::<pyo3::exceptions::PyRuntimeWarning>();
+                PyErr::warn(
+                    py, 
+                    user_warning, 
+                    format!(
+                        "The environment variable '{var_name}' is not set and the default value '{new_value}' was provided, which may be invalid for the type '{key}'."
+                    ).as_str()
+                    , 
+                    0
+                )?;
+                new_value
+            } else {
+                match e {
+                    VarError::NotPresent => return Err(PyErr::new::<pyo3::exceptions::PyKeyError, _>(
+                        format!("The environment variable '{}' is not defined and no default value was provided", var_name),
+                    )),
+                    VarError::NotUnicode(_) => return Err(PyErr::new::<pyo3::exceptions::PyKeyError, _>(
+                        format!("The environment variable '{}' has an invalid name", var_name),
+                    )),
+                }
+            }
         }
     };
 
-    let key = var_type.name().unwrap().to_string();
     let binding = HANDLERS.lock().unwrap();
     let parser = binding.get(&key);
     let result = match parser {
