@@ -5,19 +5,16 @@
 <a href="https://pypi.org/project/lienv/">
     <img src="https://img.shields.io/pypi/v/lienv.svg" alt="PyPi Latest Release"/>
 </a>
+<a href="https://pypi.org/project/lienv/">
+    <img src="https://img.shields.io/pepy/dt/lienv" alt="PyPi Total Downloads"/>
+</a>
 
 LiEnv is a tool to easily get typed values out of strings stored in environment variables.
 
 - Simplifies the sometimes tedious task of parsing strings to typed variables
 - Provides a way to do it uniformly througout the project
 - Aims to prevent unwanted behaviour caused by typos, errors or malicious content in environment variables
-
-### Currently supported Python types:
-- Integers and Floats
-- Dicts
-- Lists
-- Tuples
-- Booleans
+- Supports all primitive python types (in progress)
 
 ## Example
 
@@ -45,23 +42,13 @@ Install the latest version with:
 pip install lienv
 ```
 
-## TODO
-
-- [ ] Parse types without directly using python's eval
-- [ ] Implement unit tests in Rust
-- [ ] Figure out how to test the Python module
-- [ ] Change default integers and floats to 32 bit based on architecture
-- [ ] Add wrappers for unsigned integer parsing
-- [ ] Add wrappers for 8 and 16 bit numbers
-
-
 ## Contributing
 I'll gladly accept feedback and contributions. 
 
 Although this project's purpose was to solve problems that at first seemed too simple, the practicality it provided to me was motivation enough to turn it into a library so maybe more people could benefit from it.
 
-I am yet to be proficient in Rust, so pardon my silly mistakes.
+I am still improving my Rust skills, constructive criticism is appreciated.
 
 <div align="center">
-    <img src="https://media.npr.org/assets/img/2023/05/26/honest-work-meme-cb0f0fb2227fb84b77b3c9a851ac09b095ab74d8-s1100-c50.jpg" width="300px"/>
+    <img src="https://media.npr.org/assets/img/2023/05/26/honest-work-meme-cb0f0fb2227fb84b77b3c9a851ac09b095ab74d8-s1100-c50.jpg" width="35%"/>
 </div>
